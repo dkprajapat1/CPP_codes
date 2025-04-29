@@ -3,7 +3,7 @@
 #include<cstdlib>
 #include<ctime>
 using namespace std;
-void edit_data(){    //edit file data at any line
+void edit_data(){    //edit file data at any line  all done
     cout<<"enter student full name for edit"<<endl;
     string name;
     bool file_stutas=false;
@@ -49,46 +49,49 @@ void read_file(){   //to read the file data
     string data;
     while(getline(file, data)){
      cout<<data<<"\n";
-     n=true;      //for conform that file have data
+     n=true;      //for confirm that file have data
     }
     if(!n){
         cout<<"No data found"<<endl;
     }
     file.close();
 }
-void search_data(){    //not working 
+void search_data(int n){    //to search data done 
+    bool file_status=false;
     cout<<"enter student name"<<endl;
     string name;
     string old_data;
+    cin.ignore();      //clear all buffer
     getline(cin , name);
-    cin.ignore();
     ifstream file("score.txt", ios::in);
-    while(getline(file , old_data)){
+    while(getline(file , old_data)){    //find name
         if(old_data==name){
-            for(int i=0 ; i<2 ;i++){
-                getline(file , old_data);
+            cout<<"\nEnter person data is:-"<<endl;
+            for(int i=0 ; i<n ;i++){
                 cout<<old_data<<endl;
+                getline(file , old_data);
             }
-            file.close();
+           file_status=true;
             break;
 
         }
         
     }
-    if(file.is_open()){
+    if(!file_status){          //for data not found
         cout<<"No data found"<<endl;
-        file.close();
     }
+    file.close();
     
 }
-void add_data(){      //add new data to end of the file
+void add_data(int n){      //add new data to end of the file done
     ofstream file("score.txt" , ios::app);
-    cout<<"enter save for save new data"<<endl;
+    cout<<"enter exit for forcefully stop and save"<<endl;
     cout<<"enter name,class and pass or fail"<<endl;
     string data;
-    while(1){
+    cin.ignore();
+    for(int i=0 ;i<n ;i++){
         getline(cin , data);
-       if(data=="save"){      //to end loop
+       if(data=="exit"){      //to end loop
         break;
        }
        else
@@ -99,10 +102,10 @@ void add_data(){      //add new data to end of the file
     file.close();
 }
 void delete_file(){    //for delete file
-    cout<<"press 1 for conform and 0 for cancle"<<endl;
+    cout<<"press 1 for confirm and 0 for cancle"<<endl;
     int f;
     cin>>f;
-    if(f==1){          //for sequrity
+    if(f==1){          //for security
     ofstream file("score.txt" , ios::out);
     file.close();
     cout<<"data deleted successfully"<<endl;
@@ -113,16 +116,20 @@ void delete_file(){    //for delete file
 }
 int main(){
     while(1){
-    int n,k;
-    cout<<"\t Please enter\n1. for search data \n2. for add new \n3. delete all old data \n4. for edit data \n5. for read file \n6. for cancle"<<endl;
+    int n,k,a;
+    cout<<"how many types of data for a person"<<endl;
+    cout<<"for example name and age press 2"<<endl;
+    cout<<"input=";
+    cin>>a;
+    cout<<"\t Please enter\n1. for search data \n2. for add new \n3. delete all old data \n4. for edit data \n5. for read file \n6. for cancel"<<endl;
     cin>>n;
     switch (n)
     {
     case 1://done
-       search_data();
+       search_data(a);
         break;
     case 2://only
-       add_data();
+       add_data(a);
        break;
     case 3: //ok
        delete_file();
