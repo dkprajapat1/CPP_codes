@@ -86,7 +86,6 @@ void search_data(int n){    //to search data done
 void add_data(int n){      //add new data to end of the file done
     ofstream file("score.txt" , ios::app);
     cout<<"enter exit for forcefully stop and save"<<endl;
-    cout<<"enter name,class and pass or fail"<<endl;
     string data;
     cin.ignore();
     for(int i=0 ;i<n ;i++){
